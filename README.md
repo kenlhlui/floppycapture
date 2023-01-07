@@ -54,7 +54,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# About The Project
 
 Scripts for floppy intake work at UTL.
 Built by Jess Whyte and Andy Foster, 2018
@@ -63,30 +63,37 @@ Built by Jess Whyte and Andy Foster, 2018
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+# Getting Started
 
-### floppy.py
+## floppy.py
 FloppyCapture, or floppy.py, is a workflow script to ingest floppy disks (3.5" and 5.25") using a kryoflux two-drive setup, and attached camera.
 Note: This is an environment-specific, institution-specific (e.g. calls the UTL catalog) script, but could be modified. For a more generalized version, see floppy-nocall.py.
 
+### Usage
 
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
+* floppy.py
+  ```
+  floppy.py [-h LIB] -l -d DIR -m 3.5,5.25 -c CALL [-k KEY] [-i]
   ```
 
-### Installation
+## floppy-nocall.py
+floppy-nocall.py is a generalized version of floppy.py (it doesn't attempt to call the UTL catalog or take a photo). 
+It's a workflow script to image floppy disks (3.5" and 5.25") using a kryoflux two-drive setup. 
 
-2. Clone the repo
-   ```sh
-   git clone https://github.com/jesswhyte/floppycapture.git
-   ```
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Usage
 
+* floppy-nocall.py
+  ```floppy-nocall.py
+  floppy-nocall.py -c COLLECTION -d DIR -m MEDIATYPE -t "TRANSCRIPT" -k KEY [-i]
+  ```
+
+| Arguments 	| Values name 	|             Values             	|                                                       Explanation                                                      	|         Example        	|
+|:---------:	|:-----------:	|:------------------------------:	|:----------------------------------------------------------------------------------------------------------------------:	|:----------------------:	|
+| -c        	| COLLECTION  	| {directory-name-of-collection} 	| The collection name. This will be the second level of the files directory.                                             	| -c testing01-floppy    	|
+| -d        	| DIR         	| {top-directory-name}           	| The top directory name. Usually, it should be placed under /mnt/data.                                                  	| -d /mnt/data/testing01 	|
+| -m        	| MEDIATYPE   	| 3.5 5.25                       	| The size of the disk. Put the corresponding number after -m.                                                           	| -m 3.5                 	|
+| -t        	| TRANSCRIPT  	| {transcript-of-disk-label}     	| Transcript of the disk label. Input the written notes on the disks with quotes here. No comma is allowed in this value 	| -t "information ABC"   	|
+| -k        	| KEY         	| {disk-id}                      	| The Disk ID. This is also the name of the base directory of the disk image file (& photo of the disk).                 	| -k testing01-01        	|
 
 
 <!-- USAGE EXAMPLES -->
@@ -95,20 +102,6 @@ This is an example of how to list things you need to use the software and how to
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/jesswhyte/floppycapture/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -132,15 +125,6 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
@@ -153,9 +137,9 @@ Project Link: [https://github.com/jesswhyte/floppycapture](https://github.com/je
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* Authors: [Jess Whyte](https://github.com/jesswhyte) [Andy Foster](https://github.com/fozboz)
+* README update: [Ken Lui, TALint Intern, UTL Digital Preservation Unit](https://github.com/kenlhlui)
+* README Template: [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
