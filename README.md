@@ -56,7 +56,7 @@
 <!-- ABOUT THE PROJECT -->
 # About The Project
 
-Scripts for floppy intake work at UTL.
+Scripts for floppy intake work at [UTL](https://onesearch.library.utoronto.ca/).
 Built by Jess Whyte and Andy Foster, 2018
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -67,13 +67,13 @@ Built by Jess Whyte and Andy Foster, 2018
 
 ## floppy.py
 FloppyCapture, or floppy.py, is a workflow script to ingest floppy disks (3.5" and 5.25") using a kryoflux two-drive setup, and attached camera.
-Note: This is an environment-specific, institution-specific (e.g. calls the UTL catalog) script, but could be modified. For a more generalized version, see floppy-nocall.py.
+
+📝Note: This is an environment-specific, institution-specific (e.g. calls the UTL catalog) script, but could be modified. For a more generalized version, see [floppy-nocall.py](##floppy-nocall.py).
 
 ### Usage
 
-* floppy.py
-  ```
-  floppy.py [-h LIB] -l -d DIR -m 3.5,5.25 -c CALL [-k KEY] [-i]
+  ```floppy.py
+  python3 floppy.py [-h LIB] -l -d DIR -m 3.5,5.25 -c CALL [-k KEY] [-i]
   ```
 
 ## floppy-nocall.py
@@ -82,30 +82,25 @@ It's a workflow script to image floppy disks (3.5" and 5.25") using a kryoflux t
 
 ### Usage
 
-* floppy-nocall.py
   ```floppy-nocall.py
-  floppy-nocall.py -c COLLECTION -d DIR -m MEDIATYPE -t "TRANSCRIPT" -k KEY [-i]
+  python3 floppy-nocall.py -c COLLECTION -d DIR -m MEDIATYPE -t "TRANSCRIPT" -k KEY [-i]
   ```
 
-| Arguments 	| Values name 	|             Values             	|                                                       Explanation                                                      	|         Example        	|
+#### Required arguement
+| Parameters 	|  Name 	|Argument| Description 	|Example|
 |:---------:	|:-----------:	|:------------------------------:	|:----------------------------------------------------------------------------------------------------------------------:	|:----------------------:	|
 | -c        	| COLLECTION  	| {directory-name-of-collection} 	| The collection name. This will be the second level of the files directory.                                             	| -c testing01-floppy    	|
 | -d        	| DIR         	| {top-directory-name}           	| The top directory name. Usually, it should be placed under /mnt/data.                                                  	| -d /mnt/data/testing01 	|
-| -m        	| MEDIATYPE   	| 3.5 5.25                       	| The size of the disk. Put the corresponding number after -m.                                                           	| -m 3.5                 	|
-| -t        	| TRANSCRIPT  	| {transcript-of-disk-label}     	| Transcript of the disk label. Input the written notes on the disks with quotes here. No comma is allowed in this value 	| -t "information ABC"   	|
+| -m        	| MEDIATYPE   	| 3.5 / 5.25                       	| The size of the disk. Put the corresponding number after -m.                                                           	| -m 3.5                 	|
+| -t        	| TRANSCRIPT  	| {transcript-of-disk-label}     	| Transcript (note) of the disk label. Input the written notes on the disks with quotes here. No comma is allowed in this argument 	| -t "information ABC"   	|
 | -k        	| KEY         	| {disk-id}                      	| The Disk ID. This is also the name of the base directory of the disk image file (& photo of the disk).                 	| -k testing01-01        	|
 
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+#### Optional arguement
+| Parameters 	| Name 	| Argument 	| Description 	| Example 	|
+|:---:	|:---:	|:---:	|:---:	|:---:	|
+| -i 	|  /	| 0 / 2 / 4 / 9  	| The orginal disk type. For MFM, it is 4. For Apple DOS 400K/800K, it is 9. See [Kyroflux manual](https://www.kryoflux.com/download/kryoflux_manual.pdf) (P.14-15) for more reference. 	| -i4 	|
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -126,7 +121,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- CONTACT -->
-## Contact
+# Contact
 
 Project Link: [https://github.com/jesswhyte/floppycapture](https://github.com/jesswhyte/floppycapture)
 
@@ -135,7 +130,7 @@ Project Link: [https://github.com/jesswhyte/floppycapture](https://github.com/je
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+# Acknowledgments
 
 * Authors: [Jess Whyte](https://github.com/jesswhyte) [Andy Foster](https://github.com/fozboz)
 * README update: [Ken Lui, TALint Intern, UTL Digital Preservation Unit](https://github.com/kenlhlui)
