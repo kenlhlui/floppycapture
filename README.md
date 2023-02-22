@@ -68,13 +68,43 @@ Built by Jess Whyte and Andy Foster, 2018
 ## floppy.py
 FloppyCapture, or floppy.py, is a workflow script to ingest floppy disks (3.5" and 5.25") using a kryoflux two-drive setup, and attached camera.
 
-📝Note: This is an environment-specific, institution-specific (e.g. calls the UTL catalog) script, but could be modified. For a more generalized version, see [floppy-nocall.py](##floppy-nocall.py).
+> 📝Note: This is an environment-specific, institution-specific (e.g. calls the UTL catalog) script, but could be modified. For a more generalized version, see [floppy-nocall.py](##floppy-nocall.py).
 
 ### Usage
 
-  ```floppy.py
-  python3 floppy.py [-h LIB] -l -d DIR -m 3.5,5.25 -c CALL [-k KEY] [-i]
+  ```python
+  python3 floppy.py -l LIB -d DIR -m MEDIATYPE -c CALL [-k KEY] [-i]
   ```
+
+#### Required argument
+| Parameters 	| Name 	| Argument 	| Description 	| Example 	|
+|---	|---	|---	|---	|---	|
+| -l 	| LIB 	| {LibraryID} 	| LibraryID, for a list of library IDs, visit uoft.me/libs 	| -l UTL 	|
+| -d 	| DIR 	| {top-directory-name} 	| The top directory name. Usually, it should be placed under /mnt/data. 	| -d /mnt/data/testing01 	|
+| -m 	| MEDIATYPE 	| 3.5 / 5.25 	| The size of the disk. Put the corresponding number after -m. 	| -m 3.5 	|
+| -t 	| TRANSCRIPT 	| {transcript-of-disk-label} 	| Transcript (note) of the disk label. Input the written notes on the disks with quotes here. No comma is allowed in this argument 	| -t "information ABC" 	|
+| -c 	| COLLECTION 	| {directory-name-of-collection} 	| The collection name. This will be the second level of the files directory. 	| -c testing01-floppy 	|
+
+#### Optional argument
+| Parameters 	| Name 	| Argument 	| Description 	| Example 	|
+|---	|---	|---	|---	|---	|
+| -h 	| HELP 	| / 	| The help manual. 	| -h 	|
+| -i 	| / 	| 0 / 2 / 4 / 9 	| The orginal disk type. For MFM, it is 4. For Apple DOS 400K/800K, it is 9. See [Kyroflux manual](https://www.kryoflux.com/download/kryoflux_manual.pdf) (P.14-15) for more reference. <br /> The default (i.e. without an argument) for -i is  "-i4". 	| -i4 	|
+| -k 	| KEY 	| / 	| The Catkey of the item. 	|  	|
+
+### How floppy.py works: 
+- takes some args like media type (e.g. 3.5) and call number, 
+- checks projectlog.csv to see if you've already imaged a disk(s) for that call number,
+- pulls and displays metadata from json returned from a catalog call, 
+- asks if this is the right disk and you want to continue?
+- creates disk folder (callNum) under designated library (designated by -l argument)
+- prompts for optional label transcription
+- prompts for "notes" 
+- prompts for photo, takes picture of disk (set-up uses an ipevo doc cam + ffmpeg, we just use it for documentation, could be adapted for a different photo setup)
+- runs appropriate kryoflux dtc commands (takes stream + MFM if -i argument in place, if no -i argument, it will take stream (while trying i4 and i9) and then prompts user for i-type to try), 
+- updates disk metadata with info pulled from catalog and disk capture
+- updates a master project log
+> 📝Note: Script does not verify 'success' (i.e. if the image is mountable and files can be extracted/performed). That process is separate.
 
 ## floppy-nocall.py
 floppy-nocall.py is a generalized version of floppy.py (it doesn't attempt to call the UTL catalog or take a photo). 
@@ -82,11 +112,11 @@ It's a workflow script to image floppy disks (3.5" and 5.25") using a kryoflux t
 
 ### Usage
 
-  ```floppy-nocall.py
+  ```python
   python3 floppy-nocall.py -c COLLECTION -d DIR -m MEDIATYPE -t "TRANSCRIPT" -k KEY [-i]
   ```
 
-#### Required arguement
+#### Required argument
 | Parameters 	|  Name 	|Argument| Description 	|Example|
 |:---------:	|:-----------:	|:------------------------------:	|:----------------------------------------------------------------------------------------------------------------------:	|:----------------------:	|
 | -c        	| COLLECTION  	| {directory-name-of-collection} 	| The collection name. This will be the second level of the files directory.                                             	| -c testing01-floppy    	|
@@ -95,15 +125,33 @@ It's a workflow script to image floppy disks (3.5" and 5.25") using a kryoflux t
 | -t        	| TRANSCRIPT  	| {transcript-of-disk-label}     	| Transcript (note) of the disk label. Input the written notes on the disks with quotes here. No comma is allowed in this argument 	| -t "information ABC"   	|
 | -k        	| KEY         	| {disk-id}                      	| The Disk ID. This is also the name of the base directory of the disk image file (& photo of the disk).                 	| -k testing01-01        	|
 
-#### Optional arguement
+#### Optional argument
 | Parameters 	| Name 	| Argument 	| Description 	| Example 	|
 |:---:	|:---:	|:---:	|:---:	|:---:	|
-| -i 	|  /	| 0 / 2 / 4 / 9  	| The orginal disk type. For MFM, it is 4. For Apple DOS 400K/800K, it is 9. See [Kyroflux manual](https://www.kryoflux.com/download/kryoflux_manual.pdf) (P.14-15) for more reference. 	| -i4 	|
+| -i 	|  /	| 0 / 2 / 4 / 9  	| The orginal disk type. For MFM, it is 4. For Apple DOS 400K/800K, it is 9. See [Kyroflux manual](https://www.kryoflux.com/download/kryoflux_manual.pdf) (P.14-15) for more reference. <br /> The default (i.e. without an argument) for -i is  "-i4". 	| -i4 	|
+
+### Example command
+  ```python
+python3 floppy-nocall.py -c Accession-12345 -d /CAPTURED -m 3.5 -t "transcript of the disk label" -n "note: supplementary materials" -k Disk-000123
+  ```
+
+
+### How floppy-nocall.py works:
+- takes some args like media type (e.g. 3.5), diskID (key), etc.
+- checks to see if you've already imaged a disk with that ID(key)
+- if exists, asks if you just want to replace the stream/img files (not update the log)
+- creates disk directory (key, aka diskID) under designated collection directory
+- runs kryoflux dtc commands (takes stream + MFM if -i argument in place, if no -i argument, it will take stream (while trying i4 and i9) and then prompts user for i-type to try)
+- prompts if you want to update your notes
+- updates a master project log.csv (in your -d directory)
+
+> 📝Note: you may want to adjust the kryoflux functions and the dtc command parameters. For examplle, this script are set to only make 2 tries and limit the log output. 
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
-## Contributing
+# Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -132,8 +180,7 @@ Project Link: [https://github.com/jesswhyte/floppycapture](https://github.com/je
 <!-- ACKNOWLEDGMENTS -->
 # Acknowledgments
 
-* Authors: [Jess Whyte](https://github.com/jesswhyte) [Andy Foster](https://github.com/fozboz)
-* README update: [Ken Lui, TALint Intern, UTL Digital Preservation Unit](https://github.com/kenlhlui)
+* Contributors: [Jess Whyte](https://github.com/jesswhyte) [Andy Foster](https://github.com/fozboz) [Ken Lui](https://github.com/kenlhlui)
 * README Template: [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
