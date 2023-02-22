@@ -132,8 +132,16 @@ It's a workflow script to image floppy disks (3.5" and 5.25") using a kryoflux t
 
 ### Example command
   ```python
-python3 floppy-nocall.py -c Accession-12345 -d /CAPTURED -m 3.5 -t "transcript of the disk label" -n "note: supplementary materials" -k Disk-000123
+python3 floppy-nocall.py -c testing01-floppy -d /share/floppies -m 3.5 -t "information ABC" -n "note: supplementary materials"  -k testing01-01 -i
   ```
+#### The output:
+- */share/floppies/projectlog.csv* ← **overall projectlog/list of disks (appends)** 
+- */share/floppies/streams/* ← **directory for stream files**
+- */share/floppies/Coll003/* ← **directory for Coll/Accession**
+- */share/floppies/Coll003/001/* ← **directory for individual disk**
+- */share/floppies/Coll003/001/001_capture.log* ← **kryoflux’s log of capture**
+- */share/floppies/Coll003/001/001_disk.img* ← **disk.img, can be mounted/files extracted**
+- */share/floppies/Coll003/001/001.jpg* ← **picture of disk, only if camera is attached and you opt-in at the prompt**
 
 
 ### How floppy-nocall.py works:
