@@ -134,7 +134,7 @@ It's a workflow script to image floppy disks (3.5" and 5.25") using a kryoflux t
   ```python
 python3 floppy-nocall.py -c testing01-floppy -d /share/floppies -m 3.5 -t "information ABC" -n "note: supplementary materials"  -k testing01-01 -i
   ```
-#### The output:
+#### The output
 - */share/floppies/projectlog.csv* ← **overall projectlog/list of disks (appends)** 
 - */share/floppies/streams/* ← **directory for stream files**
 - */share/floppies/Coll003/* ← **directory for Coll/Accession**
